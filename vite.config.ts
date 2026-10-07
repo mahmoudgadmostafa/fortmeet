@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import netlify from "@netlify/vite-plugin-tanstack-start";
 
 const useHttps = process.env.HTTPS === "true";
 
@@ -16,6 +17,7 @@ export default defineConfig({
       server: { entry: "server" },
     }),
     react(),
+    netlify(),
   ],
   resolve: {
     alias: { "@": `${process.cwd()}/src` },
