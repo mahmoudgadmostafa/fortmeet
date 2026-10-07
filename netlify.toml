@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+
+[build.environment]
+  # These Supabase values are public by design (the publishable/anon key, project
+  # URL and project ID) and are intentionally inlined into the client bundle via
+  # the VITE_ prefix. Server-only secrets (SUPABASE_SERVICE_ROLE_KEY,
+  # LIVEKIT_API_SECRET, LIVEKIT_API_KEY) are still scanned.
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPABASE_PROJECT_ID,SUPABASE_PUBLISHABLE_KEY,VITE_SUPABASE_URL,VITE_SUPABASE_PROJECT_ID,VITE_SUPABASE_PUBLISHABLE_KEY"
