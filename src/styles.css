@@ -1,0 +1,281 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --font-display: "Cairo", "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+/* Modern Dark-first palette: Deep Cosmic Slate with Vivid Indigo, Cyan & Violet Accents */
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.10 0.025 275);
+  --foreground: oklch(0.98 0.005 265);
+
+  --surface: oklch(0.14 0.035 275);
+  --surface-foreground: oklch(0.98 0.005 265);
+
+  --card: oklch(0.13 0.03 275);
+  --card-foreground: oklch(0.98 0.005 265);
+
+  --popover: oklch(0.13 0.03 275);
+  --popover-foreground: oklch(0.98 0.005 265);
+
+  --primary: oklch(0.66 0.26 275);
+  --primary-foreground: oklch(0.99 0 0);
+
+  --secondary: oklch(0.20 0.045 275);
+  --secondary-foreground: oklch(0.98 0.005 265);
+
+  --muted: oklch(0.19 0.03 275);
+  --muted-foreground: oklch(0.70 0.025 265);
+
+  --accent: oklch(0.80 0.16 185);
+  --accent-foreground: oklch(0.10 0.02 275);
+
+  --destructive: oklch(0.62 0.24 25);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.66 0.26 275);
+
+  --gradient-hero: linear-gradient(135deg, #818cf8 0%, #a855f7 45%, #38bdf8 100%);
+  --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --shadow-card: 0 12px 35px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --shadow-glow: 0 16px 50px -10px rgba(99, 102, 241, 0.5);
+}
+
+.light {
+  --background: oklch(0.98 0.004 265);
+  --foreground: oklch(0.16 0.03 275);
+  --surface: oklch(1 0 0);
+  --surface-foreground: oklch(0.16 0.03 275);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.03 275);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.03 275);
+  --primary: oklch(0.55 0.24 275);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.01 275);
+  --secondary-foreground: oklch(0.22 0.04 275);
+  --muted: oklch(0.94 0.01 275);
+  --muted-foreground: oklch(0.48 0.022 275);
+  --accent: oklch(0.62 0.16 185);
+  --accent-foreground: oklch(0.99 0 0);
+  --border: oklch(0.88 0.01 275);
+  --input: oklch(0.90 0.01 275);
+  --ring: oklch(0.55 0.24 275);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    font-family: "Cairo", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    background-image:
+      linear-gradient(180deg, rgba(16, 17, 26, 0.95) 0%, rgba(10, 11, 16, 0.98) 50%, rgba(8, 9, 13, 1) 100%),
+      radial-gradient(ellipse 100% 70% at 50% -25%, rgba(99, 102, 241, 0.35), transparent 55%),
+      radial-gradient(ellipse 75% 60% at 115% 10%, rgba(6, 182, 212, 0.22), transparent 55%),
+      radial-gradient(ellipse 75% 60% at -15% 25%, rgba(168, 85, 247, 0.20), transparent 55%),
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: auto, auto, auto, auto, 48px 48px, 48px 48px;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background: rgba(99, 102, 241, 0.5);
+    color: #ffffff;
+  }
+
+  /* Custom Slim Scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  /* تقليل الحركة لتحسين إمكانية الوصول والأداء */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* تحسينات الأداء للعناصر المتحركة */
+  .animate-pulse {
+    will-change: opacity;
+  }
+}
+
+/* Glass & Border Utilities */
+.glass {
+  background: rgba(18, 20, 31, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: linear-gradient(165deg, rgba(24, 27, 42, 0.80) 0%, rgba(14, 16, 26, 0.70) 100%);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 16px 45px -10px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.glass-nav {
+  background: rgba(12, 14, 22, 0.85);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 4px 28px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.border-modern {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.border-modern-glow {
+  border: 1px solid rgba(99, 102, 241, 0.40);
+  box-shadow: 0 0 24px -4px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.input-modern {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.input-modern:focus {
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25), inset 0 1px 2px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.text-gradient {
+  background-image: var(--gradient-hero);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glow-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -8px rgba(99, 102, 241, 0.45);
+  border-color: rgba(99, 102, 241, 0.55);
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  15% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-320px) scale(1); opacity: 0; }
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.08); }
+  66% { transform: translate(-20px, 20px) scale(0.96); }
+}
+
+@keyframes auroraShift {
+  0% { transform: translate(-4%, -2%) scale(1.02); opacity: 0.65; }
+  50% { transform: translate(2%, 2%) scale(1.05); opacity: 0.9; }
+  100% { transform: translate(-2%, 4%) scale(1.03); opacity: 0.75; }
+}
+
+/* ===== مساعدات الاستجابة للشاشات الصغيرة ===== */
+
+/* ضمان عدم تجاوز المحتوى لحدود الشاشة */
+.safe-area-x {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* نمط توسيع الجداول على الموبايل */
+@media (max-width: 639px) {
+  .glass-card {
+    /* تقليل الـ blur على الموبايل لتحسين الأداء */
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+  .glass, .glass-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* تحسين أداء الصور المضمّنة */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ضمان قابلية النقر الكافية لعناصر اللمس */
+@media (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
