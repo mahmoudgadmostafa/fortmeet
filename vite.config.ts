@@ -1,26 +1,40 @@
+```ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import netlify from "@netlify/vite-plugin-tanstack-start";
 
 const useHttps = process.env.HTTPS === "true";
 
 export default defineConfig({
   plugins: [
     ...(useHttps ? [basicSsl()] : []),
+
     tailwindcss(),
-    tsConfigPaths({ projects: ["./tsconfig.json"] }),
-    tanstackStart({
-      server: { entry: "server" },
+
+    tsConfigPaths({
+      projects: ["./tsconfig.json"],
     }),
-    netlify(),
+
+    tanstackStart({
+      server: {
+        entry: "server",
+      },
+    }),
+
+    nitro(),
+
     react(),
   ],
+
   resolve: {
-    alias: { "@": `${process.cwd()}/src` },
+    alias: {
+      "@": `${process.cwd()}/src`,
+    },
+
     dedupe: [
       "react",
       "react-dom",
@@ -30,6 +44,7 @@ export default defineConfig({
       "@tanstack/query-core",
     ],
   },
+
   optimizeDeps: {
     include: [
       "react",
@@ -38,13 +53,17 @@ export default defineConfig({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
     ],
+
     ignoreOutdatedRequests: true,
   },
+
   server: {
     host: "::",
     port: 8080,
   },
+
   css: {
     transformer: "lightningcss",
   },
 });
+```
