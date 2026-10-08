@@ -1,4 +1,3 @@
-```ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -19,11 +18,7 @@ export default defineConfig({
       projects: ["./tsconfig.json"],
     }),
 
-    tanstackStart({
-      server: {
-        entry: "server",
-      },
-    }),
+    tanstackStart(),
 
     nitro(),
 
@@ -53,7 +48,6 @@ export default defineConfig({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
     ],
-
     ignoreOutdatedRequests: true,
   },
 
@@ -66,4 +60,3 @@ export default defineConfig({
     transformer: "lightningcss",
   },
 });
-```
