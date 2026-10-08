@@ -110,7 +110,30 @@ function MeetingPage() {
         });
         setLocked(info.locked);
         setLive(info.live);
-      } catch { /* ignore transient errors */ }
+      } catch (err) {
+        console.warn("meetingInfo server function error, falling back to direct query:", err);
+        try {
+          const { data: m, error } = await supabase
+            .from("meetings")
+            .select("title,host_id,password,locked,waiting_room")
+            .eq("code", code)
+            .maybeSingle();
+          if (stop) return;
+          if (error || !m) {
+            setNotFound(true);
+            return;
+          }
+          setNotFound(false);
+          setMeta({
+            title: m.title,
+            host_id: m.host_id,
+            password: m.password ? "•" : null,
+            locked: !!m.locked,
+            waiting_room: !!m.waiting_room,
+          });
+          setLocked(!!m.locked);
+        } catch { /* ignore fallback errors */ }
+      }
     }
     refresh();
     const t = setInterval(() => { if (!joinedRef.current) refresh(); }, 8000);
@@ -141,7 +164,10 @@ function MeetingPage() {
   }, [code, loadPolls]);
 
   async function handleJoin() {
-    if (!meta) return toast.error("الاجتماع غير موجود");
+    if (!meta) {
+      if (notFound) return toast.error("الاجتماع غير موجود");
+      return toast.error("جاري تحميل بيانات الاجتماع من الخادم، يرجى المحاولة بعد قليل...");
+    }
     if (!name.trim()) return toast.error("أدخل اسمك");
     if (locked && !isHost) return toast.error("الاجتماع مقفل");
     if (!isHost && !live) return toast.error("لم يبدأ المضيف الاجتماع بعد");
