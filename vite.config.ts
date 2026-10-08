@@ -11,25 +11,16 @@ const useHttps = process.env.HTTPS === "true";
 export default defineConfig({
   plugins: [
     ...(useHttps ? [basicSsl()] : []),
-
     tailwindcss(),
-
-    tsConfigPaths({
-      projects: ["./tsconfig.json"],
+    tsConfigPaths({ projects: ["./tsconfig.json"] }),
+    tanstackStart({
+      server: { entry: "server" },
     }),
-
-    tanstackStart(),
-
     nitro(),
-
     react(),
   ],
-
   resolve: {
-    alias: {
-      "@": `${process.cwd()}/src`,
-    },
-
+    alias: { "@": `${process.cwd()}/src` },
     dedupe: [
       "react",
       "react-dom",
@@ -39,7 +30,6 @@ export default defineConfig({
       "@tanstack/query-core",
     ],
   },
-
   optimizeDeps: {
     include: [
       "react",
@@ -50,12 +40,10 @@ export default defineConfig({
     ],
     ignoreOutdatedRequests: true,
   },
-
   server: {
     host: "::",
     port: 8080,
   },
-
   css: {
     transformer: "lightningcss",
   },
